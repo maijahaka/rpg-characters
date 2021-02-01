@@ -6,6 +6,7 @@ import hero.HeroType;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Demo {
     public static void runDemo() {
@@ -14,7 +15,7 @@ public class Demo {
         Hero ranger = HeroFactory.getHero(HeroType.RANGER);
         Hero mage = HeroFactory.getHero(HeroType.MAGE);
 
-        ArrayList<Hero> heroes = new ArrayList<>();
+        List<Hero> heroes = new ArrayList<>();
         heroes.add(warrior);
         heroes.add(ranger);
         heroes.add(mage);
@@ -24,10 +25,17 @@ public class Demo {
                 "Let's view their starting stats:");
         pressEnterToContinue();
 
-        for (Hero hero : heroes) {
-            hero.displayStats();
-            pressEnterToContinue();
-        }
+        displayCharacterStats(heroes);
+
+        System.out.println("Let's give 50 XP to our Warrior, 100 XP to our Ranger and " +
+                "300 XP to our Mage. Here are their stats now:");
+        pressEnterToContinue();
+
+        warrior.gainXP(50);
+        ranger.gainXP(100);
+        mage.gainXP(300);
+
+        displayCharacterStats(heroes);
 
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
     }
@@ -42,6 +50,13 @@ public class Demo {
             System.in.read();
         } catch (IOException e) {
             System.out.println(e.getMessage());;
+        }
+    }
+
+    private static void displayCharacterStats(List<Hero> heroes) {
+        for (Hero hero : heroes) {
+            hero.displayStats();
+            pressEnterToContinue();
         }
     }
 }
