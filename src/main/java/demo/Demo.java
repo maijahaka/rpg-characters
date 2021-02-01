@@ -1,19 +1,18 @@
 package demo;
 
 import hero.Hero;
-import hero.Mage;
-import hero.Ranger;
-import hero.Warrior;
+import hero.HeroFactory;
+import hero.HeroType;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Demo {
     public static void runDemo() {
-        Hero warrior = new Warrior();
-        Hero ranger = new Ranger();
-        Hero mage = new Mage();
+        // create some characters for the demonstration
+        Hero warrior = HeroFactory.getHero(HeroType.WARRIOR);
+        Hero ranger = HeroFactory.getHero(HeroType.RANGER);
+        Hero mage = HeroFactory.getHero(HeroType.MAGE);
 
         ArrayList<Hero> heroes = new ArrayList<>();
         heroes.add(warrior);
@@ -21,7 +20,8 @@ public class Demo {
         heroes.add(mage);
 
         System.out.println("Welcome to RPG character demonstration!");
-        System.out.println("There are " + heroes.size() + " characters. Let's view their starting stats.");
+        System.out.println("We have three characters: a Warrior, a Ranger and a Mage. " +
+                "Let's view their starting stats:");
         pressEnterToContinue();
 
         for (Hero hero : heroes) {
@@ -32,12 +32,16 @@ public class Demo {
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
     }
 
+    // enable viewing the demonstration bit by bit by pressing the Enter key
     private static void pressEnterToContinue() {
         try {
             System.out.println("--- Press Enter to continue ---");
+            /* Stops the run until the user presses Enter.
+            Does not work ideally if the user presses multiple keys or Enter multiple times,
+            but functions well enough for the purposes of this demonstration. */
             System.in.read();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());;
         }
     }
 }
