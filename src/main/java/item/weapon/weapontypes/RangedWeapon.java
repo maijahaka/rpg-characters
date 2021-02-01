@@ -4,7 +4,7 @@ import handler.OutputHandler;
 import item.weapon.Weapon;
 
 public class RangedWeapon implements Weapon {
-    private final int INITIAL_BASE_DAMAGE = 5;
+    private final int BASE_DAMAGE = 5;
     private final int ADDED_DAMAGE_PER_LEVEL = 3;
 
     private String name;
@@ -14,7 +14,7 @@ public class RangedWeapon implements Weapon {
     public RangedWeapon(String name, int level) {
         this.name = name;
         this.level = level;
-        this.damage = INITIAL_BASE_DAMAGE + ADDED_DAMAGE_PER_LEVEL * level;
+        this.damage = BASE_DAMAGE + ADDED_DAMAGE_PER_LEVEL * level;
     }
 
     @Override

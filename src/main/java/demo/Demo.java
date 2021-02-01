@@ -3,6 +3,10 @@ package demo;
 import hero.Hero;
 import hero.HeroFactory;
 import hero.HeroType;
+import item.armor.Armor;
+import item.armor.ArmorFactory;
+import item.armor.ArmorType;
+import item.armor.Slot;
 import item.weapon.Weapon;
 import item.weapon.WeaponFactory;
 import item.weapon.WeaponType;
@@ -58,6 +62,24 @@ public class Demo {
 
         displayWeaponStats(weapons);
 
+        System.out.println("Let's create three armor pieces: a cloth armor, a leather armor " +
+                "and a plate armor. Here are their stats:");
+        pressEnterToContinue();
+
+        Armor clothArmor = ArmorFactory.getArmor(ArmorType.CLOTH,
+                "Cloth Robes of the Mage", 3, Slot.BODY);
+        Armor leatherArmor = ArmorFactory.getArmor(ArmorType.LEATHER,
+                "Leather Boots of the Ranger", 2, Slot.LEGS);
+        Armor plateArmor = ArmorFactory.getArmor(ArmorType.PLATE,
+                "Plate Helmet of the Warrior", 1, Slot.HEAD);
+
+        List<Armor> armors = new ArrayList<>();
+        armors.add(clothArmor);
+        armors.add(leatherArmor);
+        armors.add(plateArmor);
+
+        displayArmorStats(armors);
+
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
     }
 
@@ -84,6 +106,13 @@ public class Demo {
     private static void displayWeaponStats(List<Weapon> weapons) {
         for (Weapon weapon : weapons) {
             weapon.displayStats();
+            pressEnterToContinue();
+        }
+    }
+
+    private static void displayArmorStats(List<Armor> armors) {
+        for (Armor armor : armors) {
+            armor.displayStats();
             pressEnterToContinue();
         }
     }

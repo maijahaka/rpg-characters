@@ -4,7 +4,7 @@ import handler.OutputHandler;
 import item.weapon.Weapon;
 
 public class MagicWeapon implements Weapon {
-    private final int INITIAL_BASE_DAMAGE = 25;
+    private final int BASE_DAMAGE = 25;
     private final int ADDED_DAMAGE_PER_LEVEL = 2;
 
     private String name;
@@ -14,7 +14,7 @@ public class MagicWeapon implements Weapon {
     public MagicWeapon(String name, int level) {
         this.name = name;
         this.level = level;
-        this.damage = INITIAL_BASE_DAMAGE + ADDED_DAMAGE_PER_LEVEL * level;
+        this.damage = BASE_DAMAGE + ADDED_DAMAGE_PER_LEVEL * level;
     }
 
     @Override
