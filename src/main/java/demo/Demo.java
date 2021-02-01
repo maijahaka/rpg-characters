@@ -3,6 +3,9 @@ package demo;
 import hero.Hero;
 import hero.HeroFactory;
 import hero.HeroType;
+import item.weapon.Weapon;
+import item.weapon.WeaponFactory;
+import item.weapon.WeaponType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +40,24 @@ public class Demo {
 
         displayCharacterStats(heroes);
 
+        System.out.println("Let's create three weapons: a melee weapon, a ranged weapon and " +
+                "a magic weapon. Here are their stats:");
+        pressEnterToContinue();
+
+        Weapon meleeWeapon = WeaponFactory.getWeapon(WeaponType.MELEE, "Sword for the Warrior",
+                1);
+        Weapon rangedWeapon = WeaponFactory.getWeapon(WeaponType.RANGED, "Bow for the Ranger",
+                2);
+        Weapon magicWeapon = WeaponFactory.getWeapon(WeaponType.MAGIC, "Staff for the Mage",
+                3);
+
+        List<Weapon> weapons = new ArrayList<>();
+        weapons.add(meleeWeapon);
+        weapons.add(rangedWeapon);
+        weapons.add(magicWeapon);
+
+        displayWeaponStats(weapons);
+
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
     }
 
@@ -56,6 +77,13 @@ public class Demo {
     private static void displayCharacterStats(List<Hero> heroes) {
         for (Hero hero : heroes) {
             hero.displayStats();
+            pressEnterToContinue();
+        }
+    }
+
+    private static void displayWeaponStats(List<Weapon> weapons) {
+        for (Weapon weapon : weapons) {
+            weapon.displayStats();
             pressEnterToContinue();
         }
     }

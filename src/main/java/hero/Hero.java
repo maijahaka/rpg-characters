@@ -1,6 +1,7 @@
 package hero;
 
-import level.LevelManager;
+import handler.OutputHandler;
+import level.CharacterLevelManager;
 
 // all character classes should inherit this abstract class
 public abstract class Hero {
@@ -34,7 +35,7 @@ public abstract class Hero {
         this.level = 1;
 
         // the XP required to reach level 2
-        this.levelUpRequirement = LevelManager.getInitialLevelUpRequirement();
+        this.levelUpRequirement = CharacterLevelManager.getInitialLevelUpRequirement();
 
         // values for the attribute increments on level-up are given as constructor parameters
         GAINED_HEALTH_ON_LEVEL_UP = gainedHealthOnLevelUp;
@@ -43,16 +44,32 @@ public abstract class Hero {
         GAINED_INTELLIGENCE_ON_LEVEL_UP = gainedIntelligenceOnLevelUp;
     }
 
-    public void displayStats() {
-        // displays the name of the instantiated subclass, i.e. the specific character type
-        System.out.println(this.getClass().getSimpleName() + " details:");
+    public int getHealth() {
+        return health;
+    }
 
-        System.out.println("HP: " + this.health);
-        System.out.println("Str: " + this.strength);
-        System.out.println("Dex: " + this.dexterity);
-        System.out.println("Int: " + this.intelligence);
-        System.out.println("Lvl: " + this.level);
-        System.out.println("XP to next: " + this.levelUpRequirement);
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getLevelUpRequirement() {
+        return levelUpRequirement;
+    }
+
+    public void displayStats() {
+        OutputHandler.printHeroStats(this);
     }
 
     public void gainXP(int xp) {
@@ -84,6 +101,6 @@ public abstract class Hero {
         this.intelligence += GAINED_INTELLIGENCE_ON_LEVEL_UP;
 
         // adjust the amount of XP required to reach the next level after a level-up
-        this.levelUpRequirement += LevelManager.getLevelUpRequirement(this.level);
+        this.levelUpRequirement += CharacterLevelManager.getLevelUpRequirement(this.level);
     }
 }
