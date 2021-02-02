@@ -32,6 +32,8 @@ public abstract class Hero {
     private int dexterityFromArmor;
     private int intelligenceFromArmor;
 
+    private Weapon weapon;
+
     private int level;
 
     // the XP required to reach the next level
@@ -54,6 +56,9 @@ public abstract class Hero {
         this.strengthFromArmor = 0;
         this.dexterityFromArmor = 0;
         this.intelligenceFromArmor = 0;
+
+        // initially the character does not equip a weapon
+        this.weapon = null;
 
         // all characters start at level 1
         this.level = 1;
@@ -84,6 +89,28 @@ public abstract class Hero {
         return this.intelligence + this.intelligenceFromArmor;
     }
 
+    public Weapon getWeapon() {
+        return this.weapon;
+    }
+
+    /*
+    The damage dealt when attacking is the sum of the base damage of the weapon and
+    a boost determined by the character attributes. The attribute contributing to the
+    boost as well as the factor by which the attribute stats are multiplied are
+    specific to each weapon type.
+     */
+    public int getEffectiveDamageDealt() {
+        if (this.weapon != null) {
+            return weapon.getDamage() +
+                    (int) (getEffectiveStrength() * weapon.getStrengthBoostingFactor()) +
+                    (int) (getEffectiveDexterity() * weapon.getDexterityBoostingFactor()) +
+                    (int) (getEffectiveIntelligence() * weapon.getIntelligenceBoostingFactor());
+        }
+
+        // a character not equipped with a weapon deals no damage
+        return 0;
+    }
+
     public int getLevel() {
         return this.level;
     }
@@ -105,6 +132,7 @@ public abstract class Hero {
     }
 
     public void equipWithArmor(Armor armor) {
+        // a character cannot equip an item if their level is less than the item level
         if (armor.getLevel() <= this.level) {
             this.slotsEquippedWithArmor.putIfAbsent(armor.getSlot(), null);
             slotsEquippedWithArmor.put(armor.getSlot(), armor);
@@ -120,6 +148,21 @@ public abstract class Hero {
                 this.intelligenceFromArmor += armorInSlot.getBonusIntelligence();
             }
         }
+    }
+
+    public void equipWithWeapon(Weapon weapon) {
+        // a character cannot equip an item if their level is less than the item level
+        if (weapon.getLevel() <= this.level) {
+            this.weapon = weapon;
+        }
+    }
+
+    /*
+    Currently the attack functionality only displays the damage that would be dealt and
+    no damage is caused to other characters
+     */
+    public void attack() {
+        OutputHandler.printAttackMessage(this);
     }
 
     private void checkLevelUp() {

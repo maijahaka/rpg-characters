@@ -16,6 +16,7 @@ public class OutputHandler {
         System.out.println("Int: " + hero.getEffectiveIntelligence());
         System.out.println("Lvl: " + hero.getLevel());
         System.out.println("XP to next: " + hero.getLevelUpRequirement());
+        System.out.println("Attacking for " + hero.getEffectiveDamageDealt());
     }
 
     public static void printWeaponStats(Weapon weapon) {
@@ -42,6 +43,12 @@ public class OutputHandler {
         if (armor.getBonusIntelligence() != 0) {
             System.out.println("Bonus Int: " + armor.getBonusIntelligence());
         }
+    }
+
+    public static void printAttackMessage(Hero hero) {
+        System.out.println("A " + hero.getClass().getSimpleName() +
+                " attacked with " + hero.getWeapon().getName() +
+                " and dealt " + hero.getEffectiveDamageDealt() + " damage!");
     }
 
     // removes the ending 'Weapon' from the weapon class name to get the weapon type

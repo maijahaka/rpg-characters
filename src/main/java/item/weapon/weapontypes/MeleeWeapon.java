@@ -1,11 +1,18 @@
 package item.weapon.weapontypes;
 
 import handler.OutputHandler;
+import hero.HeroAttributeType;
 import item.weapon.Weapon;
 
 public class MeleeWeapon implements Weapon {
     private final int BASE_DAMAGE = 15;
     private final int ADDED_DAMAGE_PER_LEVEL = 2;
+
+    // the character attribute that boosts the damage dealt by this weapon
+    private final HeroAttributeType BOOSTING_ATTRIBUTE = HeroAttributeType.STRENGTH;
+
+    // the factor by which the relevant character stats are multiplied for the boost
+    private final double BOOSTING_FACTOR = 1.5;
 
     private String name;
     private int level;
@@ -30,6 +37,45 @@ public class MeleeWeapon implements Weapon {
     @Override
     public int getDamage() {
         return damage;
+    }
+
+    /*
+    A non-zero boosting factor is only returned for the character attribute that is
+    specific for this weapon type. Boosting factors for other attribute types are zero,
+    which means that they do not contribute to the damage dealt.
+     */
+    @Override
+    public double getStrengthBoostingFactor() {
+        if (BOOSTING_ATTRIBUTE == HeroAttributeType.STRENGTH) {
+            return BOOSTING_FACTOR;
+        }
+        return 0;
+    }
+
+    /*
+    A non-zero boosting factor is only returned for the character attribute that is
+    specific for this weapon type. Boosting factors for other attribute types are zero,
+    which means that they do not contribute to the damage dealt.
+     */
+    @Override
+    public double getDexterityBoostingFactor() {
+        if (BOOSTING_ATTRIBUTE == HeroAttributeType.DEXTERITY) {
+            return BOOSTING_FACTOR;
+        }
+        return 0;
+    }
+
+    /*
+    A non-zero boosting factor is only returned for the character attribute that is
+    specific for this weapon type. Boosting factors for other attribute types are zero,
+    which means that they do not contribute to the damage dealt.
+     */
+    @Override
+    public double getIntelligenceBoostingFactor() {
+        if (BOOSTING_ATTRIBUTE == HeroAttributeType.INTELLIGENCE) {
+            return BOOSTING_FACTOR;
+        }
+        return 0;
     }
 
     @Override

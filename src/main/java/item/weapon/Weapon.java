@@ -6,5 +6,9 @@ public interface Weapon {
     int getLevel();
     int getDamage();
 
+    double getStrengthBoostingFactor();
+    double getDexterityBoostingFactor();
+    double getIntelligenceBoostingFactor();
+
     void displayStats();
 }

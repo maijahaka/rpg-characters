@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Demo {
     public static void runDemo() {
+        //region Initialize characters and display their initial stats
         // create some characters for the demonstration
         Hero warrior = HeroFactory.getHero(HeroType.WARRIOR);
         Hero ranger = HeroFactory.getHero(HeroType.RANGER);
@@ -33,7 +34,9 @@ public class Demo {
         pressEnterToContinue();
 
         displayCharacterStats(heroes);
+        //endregion
 
+        //region Give XP to characters and display updated stats
         System.out.println("Let's give 50 XP to our Warrior, 100 XP to our Ranger and " +
                 "300 XP to our Mage. Here are their stats now:");
         pressEnterToContinue();
@@ -43,25 +46,9 @@ public class Demo {
         mage.gainXP(300);
 
         displayCharacterStats(heroes);
+        //endregion
 
-        System.out.println("Let's create three weapons: a melee weapon, a ranged weapon and " +
-                "a magic weapon. Here are their stats:");
-        pressEnterToContinue();
-
-        Weapon meleeWeapon = WeaponFactory.getWeapon(WeaponType.MELEE, "Sword for the Warrior",
-                1);
-        Weapon rangedWeapon = WeaponFactory.getWeapon(WeaponType.RANGED, "Bow for the Ranger",
-                2);
-        Weapon magicWeapon = WeaponFactory.getWeapon(WeaponType.MAGIC, "Staff for the Mage",
-                3);
-
-        List<Weapon> weapons = new ArrayList<>();
-        weapons.add(meleeWeapon);
-        weapons.add(rangedWeapon);
-        weapons.add(magicWeapon);
-
-        displayWeaponStats(weapons);
-
+        //region Create some armor items and display their stats
         System.out.println("Let's create three armor pieces: a cloth armor, a leather armor " +
                 "and a plate armor. Here are their stats:");
         pressEnterToContinue();
@@ -79,7 +66,9 @@ public class Demo {
         armors.add(plateArmor);
 
         displayArmorStats(armors);
+        //endregion
 
+        //region Equip each character with an armor item
         System.out.println("Now, let's equip our characters with some armor items.");
         System.out.println();
 
@@ -92,7 +81,7 @@ public class Demo {
         warrior.displayStats();
         pressEnterToContinue();
 
-        System.out.println("Next, we will equip our Ranger with boots and our Mage with robes");
+        System.out.println("Next, we will equip our Ranger with boots and our Mage with robes.");
         System.out.println("Here are their stats before these additions:");
         ranger.displayStats();
         mage.displayStats();
@@ -103,18 +92,22 @@ public class Demo {
         ranger.displayStats();
         mage.displayStats();
         pressEnterToContinue();
+        //endregion
 
+        //region Add a second armor item to a character
         System.out.println("Maybe our Mage would like to have boots as well? " +
                 "Here are the Mage's stats after this addition:");
         mage.equipWithArmor(leatherArmor);
         mage.displayStats();
         pressEnterToContinue();
+        //endregion
 
+        //region Change an armor item equipped by a character
         System.out.println("Ah, we found a new cloth item! Here are its stats:");
         Armor clothHat = ArmorFactory.getArmor(ArmorType.CLOTH, "A Pretty Cloth Hat",
                 1, Slot.HEAD);
         clothHat.displayStats();
-        System.out.println();
+        pressEnterToContinue();
 
         System.out.println("Maybe our Warrior would like to try this item? " +
                 "Here are the Warrior's stats after this change:");
@@ -128,8 +121,73 @@ public class Demo {
         warrior.equipWithArmor(plateArmor);
         warrior.displayStats();
         pressEnterToContinue();
+        //endregion
 
+        //region Create some weapons and display their stats
+        System.out.println("Let's create three weapons: a melee weapon, a ranged weapon and " +
+                "a magic weapon. Here are their stats:");
+        pressEnterToContinue();
+
+        Weapon meleeWeapon = WeaponFactory.getWeapon(WeaponType.MELEE, "Sword for the Warrior",
+                1);
+        Weapon rangedWeapon = WeaponFactory.getWeapon(WeaponType.RANGED, "Bow for the Ranger",
+                2);
+        Weapon magicWeapon = WeaponFactory.getWeapon(WeaponType.MAGIC, "Staff for the Mage",
+                3);
+
+        List<Weapon> weapons = new ArrayList<>();
+        weapons.add(meleeWeapon);
+        weapons.add(rangedWeapon);
+        weapons.add(magicWeapon);
+
+        displayWeaponStats(weapons);
+        //endregion
+
+        //region Equip each character with a weapon
+        System.out.println("As we saw earlier, the characters deal no damage if they " +
+                "are not equipped with a weapon.");
+        System.out.println("Let's equip each of our characters with a weapon. Here are " +
+                "their updated stats:");
+        pressEnterToContinue();
+
+        warrior.equipWithWeapon(meleeWeapon);
+        ranger.equipWithWeapon(rangedWeapon);
+        mage.equipWithWeapon(magicWeapon);
+
+        displayCharacterStats(heroes);
+        //endregion
+
+        //region Change the weapon equipped by a character
+        System.out.println("What if our Warrior would like to try a bow?");
+        System.out.println("Here are the stats after the change:");
+
+        Weapon levelOneBow = WeaponFactory.getWeapon(WeaponType.RANGED, "Level 1 Bow", 1);
+
+        warrior.equipWithWeapon(levelOneBow);
+        warrior.displayStats();
+        pressEnterToContinue();
+
+        System.out.println("Again, this does not seem like a good option for a warrior, ");
+        System.out.println("so let's give him his sword back:");
+        warrior.equipWithWeapon(meleeWeapon);
+        warrior.displayStats();
+        pressEnterToContinue();
+        //endregion
+
+        //region Make each character attack
+        System.out.println("Finally, each of our characters performs an attack.");
+        System.out.println("Here is what happens:");
+        pressEnterToContinue();
+
+        warrior.attack();
+        ranger.attack();
+        mage.attack();
+        pressEnterToContinue();
+        //endregion
+
+        //region End the demonstration
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
+        //endregion
     }
 
     // enable viewing the demonstration bit by bit by pressing the Enter key
