@@ -1,6 +1,6 @@
-package level;
+package hero;
 
-public class CharacterLevelManager {
+public class HeroLevelManager {
     // the XP required to reach level 2
     private static int INITIAL_LEVEL_UP_REQUIREMENT = 100;
 

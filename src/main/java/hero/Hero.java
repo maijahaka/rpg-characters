@@ -4,7 +4,6 @@ import handler.OutputHandler;
 import item.armor.Armor;
 import item.armor.Slot;
 import item.weapon.Weapon;
-import level.CharacterLevelManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +63,7 @@ public abstract class Hero {
         this.level = 1;
 
         // the XP required to reach level 2
-        this.levelUpRequirement = CharacterLevelManager.getInitialLevelUpRequirement();
+        this.levelUpRequirement = HeroLevelManager.getInitialLevelUpRequirement();
 
         // values for the attribute increments on level-up are given as constructor parameters
         GAINED_HEALTH_ON_LEVEL_UP = gainedHealthOnLevelUp;
@@ -186,7 +185,7 @@ public abstract class Hero {
         this.intelligence += GAINED_INTELLIGENCE_ON_LEVEL_UP;
 
         // adjust the amount of XP required to reach the next level after a level-up
-        this.levelUpRequirement += CharacterLevelManager.getLevelUpRequirement(this.level);
+        this.levelUpRequirement += HeroLevelManager.getLevelUpRequirement(this.level);
     }
 
     private void initializeStatsFromArmor() {
