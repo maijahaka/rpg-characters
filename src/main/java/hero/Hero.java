@@ -1,25 +1,41 @@
 package hero;
 
 import handler.OutputHandler;
+import item.armor.Armor;
+import item.armor.Slot;
+import item.weapon.Weapon;
 import level.CharacterLevelManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // all character classes should inherit this abstract class
 public abstract class Hero {
-    private int health;
-    private int strength;
-    private int dexterity;
-    private int intelligence;
-
-    private int level;
-
-    // the XP required to reach the next level
-    private int levelUpRequirement;
 
     // the increments added to each attribute value on level-up
     private final int GAINED_HEALTH_ON_LEVEL_UP;
     private final int GAINED_STRENGTH_ON_LEVEL_UP;
     private final int GAINED_DEXTERITY_ON_LEVEL_UP;
     private final int GAINED_INTELLIGENCE_ON_LEVEL_UP;
+
+    private int health;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
+
+    // armor that the character is equipped with
+    private Map<Slot, Armor> slotsEquippedWithArmor;
+
+    // the bonus attributes gained form armor
+    private int healthFromArmor;
+    private int strengthFromArmor;
+    private int dexterityFromArmor;
+    private int intelligenceFromArmor;
+
+    private int level;
+
+    // the XP required to reach the next level
+    private int levelUpRequirement;
 
     public Hero(int initialHealth, int initialStrength, int initialDexterity,
                 int initialIntelligence, int gainedHealthOnLevelUp, int gainedStrengthOnLevelUp,
@@ -30,6 +46,14 @@ public abstract class Hero {
         this.strength = initialStrength;
         this.dexterity = initialDexterity;
         this.intelligence = initialIntelligence;
+
+        // initially the character equips no armor
+        this.slotsEquippedWithArmor = new HashMap<>();
+
+        this.healthFromArmor = 0;
+        this.strengthFromArmor = 0;
+        this.dexterityFromArmor = 0;
+        this.intelligenceFromArmor = 0;
 
         // all characters start at level 1
         this.level = 1;
@@ -44,28 +68,28 @@ public abstract class Hero {
         GAINED_INTELLIGENCE_ON_LEVEL_UP = gainedIntelligenceOnLevelUp;
     }
 
-    public int getHealth() {
-        return health;
+    public int getEffectiveHealth() {
+        return this.health + this.healthFromArmor;
     }
 
-    public int getStrength() {
-        return strength;
+    public int getEffectiveStrength() {
+        return this.strength + this.strengthFromArmor;
     }
 
-    public int getDexterity() {
-        return dexterity;
+    public int getEffectiveDexterity() {
+        return this.dexterity + this.dexterityFromArmor;
     }
 
-    public int getIntelligence() {
-        return intelligence;
+    public int getEffectiveIntelligence() {
+        return this.intelligence + this.intelligenceFromArmor;
     }
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     public int getLevelUpRequirement() {
-        return levelUpRequirement;
+        return this.levelUpRequirement;
     }
 
     public void displayStats() {
@@ -78,6 +102,24 @@ public abstract class Hero {
 
         // check if the character has reached a new level after gaining XP
         checkLevelUp();
+    }
+
+    public void equipWithArmor(Armor armor) {
+        if (armor.getLevel() <= this.level) {
+            this.slotsEquippedWithArmor.putIfAbsent(armor.getSlot(), null);
+            slotsEquippedWithArmor.put(armor.getSlot(), armor);
+
+            initializeStatsFromArmor();
+
+            for (Slot slot : slotsEquippedWithArmor.keySet()) {
+                Armor armorInSlot = slotsEquippedWithArmor.get(slot);
+
+                this.healthFromArmor += armorInSlot.getBonusHP();
+                this.strengthFromArmor += armorInSlot.getBonusStrength();
+                this.dexterityFromArmor += armorInSlot.getBonusDexterity();
+                this.intelligenceFromArmor += armorInSlot.getBonusIntelligence();
+            }
+        }
     }
 
     private void checkLevelUp() {
@@ -102,5 +144,12 @@ public abstract class Hero {
 
         // adjust the amount of XP required to reach the next level after a level-up
         this.levelUpRequirement += CharacterLevelManager.getLevelUpRequirement(this.level);
+    }
+
+    private void initializeStatsFromArmor() {
+        this.healthFromArmor = 0;
+        this.strengthFromArmor = 0;
+        this.dexterityFromArmor = 0;
+        this.intelligenceFromArmor = 0;
     }
 }

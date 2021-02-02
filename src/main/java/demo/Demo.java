@@ -80,6 +80,55 @@ public class Demo {
 
         displayArmorStats(armors);
 
+        System.out.println("Now, let's equip our characters with some armor items.");
+        System.out.println();
+
+        System.out.println("First, we will equip our Warrior with a helmet.");
+        System.out.println("As a reminder, here are the warrior's stats before this addition:");
+        warrior.displayStats();
+        pressEnterToContinue();
+        System.out.println("And here are the stats after the addition:");
+        warrior.equipWithArmor(plateArmor);
+        warrior.displayStats();
+        pressEnterToContinue();
+
+        System.out.println("Next, we will equip our Ranger with boots and our Mage with robes");
+        System.out.println("Here are their stats before these additions:");
+        ranger.displayStats();
+        mage.displayStats();
+        pressEnterToContinue();
+        System.out.println("And here are the stats after the addition:");
+        ranger.equipWithArmor(leatherArmor);
+        mage.equipWithArmor(clothArmor);
+        ranger.displayStats();
+        mage.displayStats();
+        pressEnterToContinue();
+
+        System.out.println("Maybe our Mage would like to have boots as well? " +
+                "Here are the Mage's stats after this addition:");
+        mage.equipWithArmor(leatherArmor);
+        mage.displayStats();
+        pressEnterToContinue();
+
+        System.out.println("Ah, we found a new cloth item! Here are its stats:");
+        Armor clothHat = ArmorFactory.getArmor(ArmorType.CLOTH, "A Pretty Cloth Hat",
+                1, Slot.HEAD);
+        clothHat.displayStats();
+        System.out.println();
+
+        System.out.println("Maybe our Warrior would like to try this item? " +
+                "Here are the Warrior's stats after this change:");
+        warrior.equipWithArmor(clothHat);
+        warrior.displayStats();
+        pressEnterToContinue();
+
+        System.out.println("This probably isn't the best choice for a warrior... " +
+                "So let's revert back to the original equipment.");
+        System.out.println("The stats should have returned back to their previous values:");
+        warrior.equipWithArmor(plateArmor);
+        warrior.displayStats();
+        pressEnterToContinue();
+
         System.out.println("Thank you for viewing the demonstration! Have a nice day! :-)");
     }
 

@@ -10,10 +10,10 @@ public class OutputHandler {
         // displays the name of the instantiated class, i.e. the specific character type
         System.out.println(hero.getClass().getSimpleName() + " details:");
 
-        System.out.println("HP: " + hero.getHealth());
-        System.out.println("Str: " + hero.getStrength());
-        System.out.println("Dex: " + hero.getDexterity());
-        System.out.println("Int: " + hero.getIntelligence());
+        System.out.println("HP: " + hero.getEffectiveHealth());
+        System.out.println("Str: " + hero.getEffectiveStrength());
+        System.out.println("Dex: " + hero.getEffectiveDexterity());
+        System.out.println("Int: " + hero.getEffectiveIntelligence());
         System.out.println("Lvl: " + hero.getLevel());
         System.out.println("XP to next: " + hero.getLevelUpRequirement());
     }
