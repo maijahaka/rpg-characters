@@ -1,6 +1,6 @@
 # RPG Characters
 
-This is a simple implementation of a role-playing game environment.
+This is a simple implementation of a role-playing game system.
 There is no actual game logic, but the purpose of this project
 is to demonstrate the creation and use of various types of Characters,
 Armor and Weapons.
